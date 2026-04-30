@@ -1,0 +1,12 @@
+
+services:
+
+  centos7:
+    build:
+      context: .
+      dockerfile: Dockerfile.centos7
+    container_name: ssh-centos7
+    ports:
+      - "2221:22"
+  
+  

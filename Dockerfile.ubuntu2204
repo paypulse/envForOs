@@ -1,0 +1,15 @@
+FROM ubuntu:22.04
+
+ENV DEBIAN_FRONTEND=noninteractive
+
+RUN apt-get update && \
+    apt-get install -y openssh-server && \
+    apt-get clean && \
+    mkdir -p /var/run/sshd && \
+    useradd -m -s /bin/bash testuser && \
+    echo 'testuser:test1234!' | chpasswd && \
+    sed -i 's/#PasswordAuthentication yes/PasswordAuthentication yes/' /etc/ssh/sshd_config && \
+    sed -i 's/UsePAM yes/UsePAM no/' /etc/ssh/sshd_config
+
+EXPOSE 22
+CMD [ "/usr/sbin/sshd" , "-D" ]

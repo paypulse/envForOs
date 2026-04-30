@@ -1,0 +1,14 @@
+FROM centos:7
+
+RUN sed -i 's|^mirrorlist=|#mirrorlist=|g' /etc/yum.repos.d/CentOS-Base.repo && \
+    sed -i 's|^#baseurl=http://mirror.centos.org|baseurl=http://vault.centos.org|g' /etc/yum.repos.d/CentOS-Base.repo && \
+    yum install -y openssh-server openssh-clients && \
+    yum clean all && \
+    ssh-keygen -A && \
+    useradd -m testuser && \
+    echo 'testuser:test1234!' | chpasswd && \
+    sed -i 's/#PasswordAuthentication yes/PasswordAuthentication yes/' /etc/ssh/sshd_config && \
+    sed -i 's/UsePAM yes/UsePAM no/' /etc/ssh/sshd_config
+
+EXPOSE 22
+CMD [ "/usr/sbin/sshd","-D" ]
