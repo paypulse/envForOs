@@ -12,3 +12,6 @@
 - Spring boot 2.3.4.RELEASE
 - MAVEN 3.6.X ~ 3.8.X
   
+
+## 작업 내역 
+- 20260430  : docker-compose로 centos7까지 띄움 
