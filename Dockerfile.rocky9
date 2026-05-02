@@ -1,0 +1,16 @@
+FROM rockylinux:9
+
+# OpenSSH 8.7+ — RSA/SHA-1 기본 비활성화
+# jsch 0.1.55 연결 실패 재현 가능
+
+RUN dnf install -y openssh-server && \
+    dnf clean all
+
+RUN ssh-keygen -A && \
+    useradd -m testuser && \
+    echo 'testuser:test1234!' | chpasswd && \
+    sed -i 's/#PasswordAuthentication yes/PasswordAuthentication yes/' /etc/ssh/sshd_config && \
+    sed -i 's/UsePAM yes/UsePAM no/' /etc/ssh/sshd_config
+
+EXPOSE 22
+CMD ["/usr/sbin/sshd", "-D"]

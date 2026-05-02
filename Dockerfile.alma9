@@ -1,0 +1,18 @@
+FROM almalinux:9
+
+# !! jsch 실패 핵심 재현 케이스 !!
+# OpenSSH 8.7+ — RSA/SHA-1 서명 기본 비활성화
+# jsch 0.1.55 → JSchException: Algorithm negotiation fail
+# Apache MINA SSHD → 정상 연결
+
+RUN dnf install -y openssh-server && \
+    dnf clean all
+
+RUN ssh-keygen -A && \
+    useradd -m testuser && \
+    echo 'testuser:test1234!' | chpasswd && \
+    sed -i 's/#PasswordAuthentication yes/PasswordAuthentication yes/' /etc/ssh/sshd_config && \
+    sed -i 's/UsePAM yes/UsePAM no/' /etc/ssh/sshd_config
+
+EXPOSE 22
+CMD ["/usr/sbin/sshd", "-D"]
