@@ -1,4 +1,10 @@
-FROM almalinux:9 
+FROM registry.access.redhat.com/ubi9/ubi
+
+# UBI 9 — RHEL 9 기반 공식 이미지 (Red Hat 계정 불필요)
+# !! jsch 실패 핵심 케이스 !!
+# OpenSSH 8.7+ — RSA/SHA-1 기본 비활성화
+# jsch 0.1.55 → JSchException: Algorithm negotiation fail
+# Apache MINA SSHD → 정상 연결
 
 RUN dnf install -y openssh-server && \
     dnf clean all && \
@@ -9,4 +15,4 @@ RUN dnf install -y openssh-server && \
     sed -i 's/UsePAM yes/UsePAM no/' /etc/ssh/sshd_config
 
 EXPOSE 22
-CMD [ "/usr/sbin/sshd" , "-D" ]
+CMD ["/usr/sbin/sshd", "-D"]

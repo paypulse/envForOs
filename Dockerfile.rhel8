@@ -1,4 +1,7 @@
-FROM almalinux:8
+FROM registry.access.redhat.com/ubi8/ubi
+
+# UBI 8 — RHEL 8 기반 공식 이미지 (Red Hat 계정 불필요)
+# OpenSSH 8.0 — RSA/SHA-1 정상 지원
 
 RUN dnf install -y openssh-server && \
     dnf clean all && \
@@ -9,4 +12,4 @@ RUN dnf install -y openssh-server && \
     sed -i 's/UsePAM yes/UsePAM no/' /etc/ssh/sshd_config
 
 EXPOSE 22
-CMD [ "/usr/sbin/sshd","-D" ]
+CMD ["/usr/sbin/sshd", "-D"]

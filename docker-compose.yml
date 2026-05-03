@@ -1,6 +1,7 @@
 
 services:
 
+  # ------- RHEL 계열 ------
   centos7:
     build:
       context: .
@@ -8,5 +9,41 @@ services:
     container_name: ssh-centos7
     ports:
       - "2221:22"
+
+  alma8:
+    build:
+      context: .
+      dockerfile: Dockerfile.alma8
+    container_name: ssh-alma8
+    hostname: alma8
+    ports:
+      - "2222:22"
+
+  alma9:
+    build:
+      context: .
+      dockerfile: Dockerfile.alma9
+    container_name: ssh-alma9
+    hostname: alma9
+    ports:
+      - "2223:22"
+
+  rhe18:
+    build:
+      context: .
+      dockerfile: Dockerfile.rhe18
+    container_name: ssh-rhe18
+    hostname: rhe18
+    ports:
+      - "2224:22"
+
+  rhe19:
+    build:
+      context: .
+      dockerfile: Dockerfile.rhe19
+    container_name: ssh-rhe19
+    hostname: rhe19
+
+
   
   
