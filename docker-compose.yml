@@ -31,8 +31,8 @@ services:
   rhe18:
     build:
       context: .
-      dockerfile: Dockerfile.rhe18
-    container_name: ssh-rhe18
+      dockerfile: Dockerfile.rhel8
+    container_name: ssh-rhel8
     hostname: rhe18
     ports:
       - "2224:22"
@@ -40,9 +40,71 @@ services:
   rhe19:
     build:
       context: .
-      dockerfile: Dockerfile.rhe19
-    container_name: ssh-rhe19
+      dockerfile: Dockerfile.rhel9
+    container_name: ssh-rhel9
     hostname: rhe19
+    ports:
+      - "2225:22"
+  
+  rocky8:
+    build: 
+      context: . 
+      dockerfile: Dockerfile.rocky8
+    container_name: ssh-rocky8
+    hostname: rocky8
+    ports:
+      - "2226:22"
+  
+  rocky9:
+    build:
+      context: .
+      dockerfile: Dockerfile.rocky9
+    container_name: ssh-rocky9
+    hostname: rocky9
+    ports:
+      - "2227:22"
+  
+  sles15:
+    build:
+      context: .
+      dockerfile: Dockerfile.s1es15
+    container_name: ssh-sles15
+    hostname: sles15
+    ports:
+      - "2228:22"
+  
+
+  ubuntu2004:
+    build:
+      context: .
+      dockerfile: Dockerfile.ubuntu2004
+    container_name: ssh-ubuntu2004
+    hostname: ubuntu2004
+    ports:
+      - "2229:22"
+
+  # !! jsch 실패 케이스
+  ubuntu2204:
+    build:
+      context: .
+      dockerfile: Dockerfile.ubuntu2204
+    container_name: ssh-ubuntu2204
+    hostname: ubuntu2204
+    ports:
+      - "2230:22"
+
+  ubuntu2404:
+    build:
+      context: .
+      dockerfile: Dockerfile.ubuntu2404
+    container_name: ssh-ubuntu2404
+    hostname: ubuntu2404
+    ports:
+      - "2231:22"
+
+
+
+
 
 
   
