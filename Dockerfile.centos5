@@ -1,0 +1,17 @@
+FROM astj/centos5-vault
+
+RUN yum install -y openssh-server openssh-clients && \
+    yum clean all
+
+# CentOS 5 는 ssh-keygen -A 미지원 — 개별 생성
+RUN ssh-keygen -t rsa -f /etc/ssh/ssh_host_rsa_key -N '' && \
+    ssh-keygen -t dsa -f /etc/ssh/ssh_host_dsa_key -N ''
+
+RUN sed -i 's/#PasswordAuthentication yes/PasswordAuthentication yes/' /etc/ssh/sshd_config && \
+    sed -i 's/UsePAM yes/UsePAM no/' /etc/ssh/sshd_config
+
+RUN useradd -m testuser && \
+    echo 'testuser:test1234!' | chpasswd
+
+EXPOSE 22
+CMD ["/usr/sbin/sshd", "-D"]

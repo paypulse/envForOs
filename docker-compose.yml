@@ -9,6 +9,15 @@ services:
     container_name: ssh-centos7
     ports:
       - "2221:22"
+  
+  centos5:
+    build: 
+      context: .
+      dockerfile: Dockerfile.centos5
+    container_name: ssh-centos5
+    hostname: centos5
+    ports:
+      - "2220:22"
 
   alma8:
     build:
